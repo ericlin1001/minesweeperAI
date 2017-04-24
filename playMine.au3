@@ -31,8 +31,9 @@ Global $mapBR[]=[ 578, 368];
 Global $clientWidth=-1;
 Global $clientHeight=-1;
 
-Global $defaultDealy=50;
-
+Global $defaultDealy=0;
+Global $mouseSpeed=3; 1 for fastest, 100 for slowest.
+Global $delayOfEachClick=100;
 ;***************
 #include-once
 #include <MsgBoxConstants.au3>
@@ -93,16 +94,16 @@ Func startApp()
 		MsgBox($MB_SYSTEMMODAL, "Warning", "An occurence of playMine is already running");
 		;trace(""An occurence of test is already running"")
 		;Send("{F11}");end the previouse script.
-		Sleep(1000);
-		;Exit
+		;Sleep(1000);
+		Exit
 	EndIf
 	HotKeySet("{F10}", "TogglePause")
 	HotKeySet("{F11}", "Terminate")
 	HotKeySet("{F9}", "restartGame") ;
-	HotKeySet("p", "mainLoop") ;
+	;HotKeySet("p", "mainLoop") ;
 	$isEnd=False
-	$startTimeHandle=TimerInit();
-	;readSetting()
+	;$startTimeHandle=TimerInit();
+	readSetting()
 	setupDebug()
 	;initScript()
 	startGameProgram()
@@ -118,6 +119,10 @@ $isDebug=Int(IniRead("setting.ini","General","isDebug",1))
 ;trace("$isDebug"&$isDebug)
 $isShowBasicInfo=Int(IniRead("setting.ini","General","isShowBasicInfo",0))
 $logFileName=IniRead("setting.ini","General","logFileName","log.log");
+$defaultDealy=IniRead("setting.ini","General","defaultDelay","100");
+$mouseSpeed=IniRead("setting.ini","General","mouseSpeed","10");
+
+$delayOfEachClick=IniRead("setting.ini","General","delayOfEachClick","100");
 EndFunc
 Func createFoobars()
 	;***********test dm************/
@@ -200,22 +205,22 @@ Func restMouse()
 	mclick($defaultXY[0],$defaultXY[1]);
 EndFunc
 
-Func mmove($x,$y,$s=10)
+Func mmove($x,$y)
 	$x=$x+Random(-2,2,1)
 	$y=$y+Random(-2,2,1)
-	MouseMove($x,$y,$s)
-	Sleep(50)
+	MouseMove($x,$y,$mouseSpeed)
+	;Sleep(50)
 EndFunc
 
 Func mclick($x,$y,$isLeft=True)
 	$x=$x+Random(-2,2,1)
 	$y=$y+Random(-2,2,1)
 	If $isLeft Then
-	MouseClick("left",$x,$y,1,5)
+	MouseClick("left",$x,$y,1,$mouseSpeed)
 Else
-	MouseClick("right",$x,$y,1,5)
+	MouseClick("right",$x,$y,1,$mouseSpeed)
 EndIf
-	Sleep(50)
+	;Sleep(50)
 EndFunc
 
 
@@ -246,20 +251,21 @@ Next
 EndFunc
 
 Func toXY($r, $c, ByRef $x, ByRef $y)
-If $r <0 Or $r >= $NumRow Or $c<0 Or $c>=$NumCol  Then
-	trace("Error: $r, $c fails. $r="&$r&" $c="&$c);
-	$x=0;
-	$y=0;
-Return
-EndIf
-$x=$c*$tileSize+$baseX;
-$y=$r*$tileSize+$baseY;
+	If $r <0 Or $r >= $NumRow Or $c<0 Or $c>=$NumCol  Then
+		trace("Error: $r, $c fails. $r="&$r&" $c="&$c);
+		$x=0;
+		$y=0;
+	Return
+	EndIf
+	$x=$mapXY[$r][$c][0];
+	$y=$mapXY[$r][$c][1];
+	;$x=$c*$tileSize+$baseX;
+	;$y=$r*$tileSize+$baseY;
 EndFunc
 
 Func clickMine($r, $c)
 Local $x, $y;
 toXY($r, $c, $x, $y);
-WinActivate($hwnd);
 mclick($x+$tileSize/2, $y+$tileSize/2);
 EndFunc
 
@@ -393,7 +399,7 @@ startGameProgram();
 
 trace("try click play again button");
 basicNotify("Please wait 2s, program's going to click the play again button");
-Sleep(200);
+Sleep(100);
 If not clickPics("playAgain2.bmp|playAgain1.bmp|playAgain.bmp") Then
 	basicNotify("Auto click faisl, Please ress button: play again manually!");
 Else
@@ -421,6 +427,8 @@ Func mainLoop()
 			Case 0 ; playing.
 
 				basicNotify("playing, press <F10> to pause/continue, <F11> to stop...");
+				mmove($clientWidth,$clientHeight);
+				Sleep($defaultDealy);
 				ScreenCapture_CaptureWnd("a.bmp", $hwnd,  $mapTL[0], $mapTL[1], $mapBR[0]-1, $mapBR[1]-1);
 				parseMapToFile("imgs\a.bmp", "map.txt");
 				RunWait("TrivalMineAI.exe map.txt operation.txt","",false);
@@ -445,18 +453,17 @@ Func mainLoop()
 					Local $len=UBound($arr);
 
 					trace($len);
-
+					WinActivate($hwnd);
 					for $i =0 to $len-2 Step 2
-						Sleep(10);
+						Sleep($delayOfEachClick);
 						$r=int($arr[$i]);
 						$c=int($arr[$i+1]);
 						trace("clicking ("&$r&","&$c&")...");
 						clickMine($r, $c);
-
 					Next
-					mmove($clientWidth,$clientHeight);
+					;mmove($clientWidth,$clientHeight);
 				EndIf
-				Sleep($defaultDealy);
+
 			case 1; fails.
 				basicNotify("You lose, press <F9> to play again.!!!!");
 				$isEnd=true;

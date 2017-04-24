@@ -6,3 +6,4 @@ md bin\imgs
 copy imgs\* bin\imgs\
 copy TrivalMineAI.exe bin\
 copy .\extraDlls\* bin\
+copy setting.ini bin\
