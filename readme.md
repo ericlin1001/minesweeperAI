@@ -15,4 +15,7 @@ It is the main script.
 # setting.ini 
 It is a setting file used in script: playMine.au3.
 
+# How to use it?
+double click playMineMain.exe
+
 
