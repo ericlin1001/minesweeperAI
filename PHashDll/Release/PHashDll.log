@@ -1,0 +1,16 @@
+﻿  stdafx.cpp
+  dllmain.cpp
+  ImagePHash.cpp
+ImagePHash.cpp(50): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+ImagePHash.cpp(87): warning C4005: 'Trace' : macro redefinition
+          ImagePHash.cpp(21) : see previous definition of 'Trace'
+ImagePHash.cpp(101): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+ImagePHash.cpp(154): warning C4018: '<' : signed/unsigned mismatch
+ImagePHash.cpp(213): warning C4018: '<' : signed/unsigned mismatch
+ImagePHash.cpp(424): warning C4018: '<' : signed/unsigned mismatch
+ImagePHash.cpp(425): warning C4018: '<' : signed/unsigned mismatch
+  PHashDll.cpp
+     Creating library C:\Users\ailab\Desktop\minesweeperAI\PHashDll\Release\PHashDll.lib and object C:\Users\ailab\Desktop\minesweeperAI\PHashDll\Release\PHashDll.exp
+  Generating code
+  Finished generating code
+  PHashDll.vcxproj -> C:\Users\ailab\Desktop\minesweeperAI\PHashDll\Release\PHashDll.dll

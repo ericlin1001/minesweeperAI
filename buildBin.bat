@@ -5,3 +5,4 @@ copy ImageSearchDLL.dll bin\
 md bin\imgs
 copy imgs\* bin\imgs\
 copy TrivalMineAI.exe bin\
+copy .\extraDlls\* bin\

@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testParseMap", "..\testPars
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TrivalMineAI", "TrivalMineAI\TrivalMineAI.vcxproj", "{3E9658EA-4D6B-4238-B495-811B8046F27E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SmartMineAI", "..\SmartMineAI\SmartMineAI.vcxproj", "{DDFF7631-5A2B-4258-B29E-75C359BA02B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -39,6 +41,14 @@ Global
 		{3E9658EA-4D6B-4238-B495-811B8046F27E}.Release|Win32.Build.0 = Release|Win32
 		{3E9658EA-4D6B-4238-B495-811B8046F27E}.Release|x64.ActiveCfg = Release|x64
 		{3E9658EA-4D6B-4238-B495-811B8046F27E}.Release|x64.Build.0 = Release|x64
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Debug|Win32.Build.0 = Debug|Win32
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Debug|x64.ActiveCfg = Debug|x64
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Debug|x64.Build.0 = Debug|x64
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Release|Win32.ActiveCfg = Release|Win32
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Release|Win32.Build.0 = Release|Win32
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Release|x64.ActiveCfg = Release|x64
+		{DDFF7631-5A2B-4258-B29E-75C359BA02B0}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

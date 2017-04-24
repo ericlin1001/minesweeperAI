@@ -1,0 +1,12 @@
+﻿  stdafx.cpp
+  ImagePHash.cpp
+ImagePHash.cpp(53): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+ImagePHash.cpp(110): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+ImagePHash.cpp(163): warning C4018: '<' : signed/unsigned mismatch
+ImagePHash.cpp(222): warning C4018: '<' : signed/unsigned mismatch
+ImagePHash.cpp(543): warning C4018: '<' : signed/unsigned mismatch
+ImagePHash.cpp(544): warning C4018: '<' : signed/unsigned mismatch
+  testParseMap.cpp
+  Generating code
+  Finished generating code
+  testParseMap.vcxproj -> C:\Users\ailab\Desktop\minesweeperAI\PHashDll\Release\testParseMap.exe

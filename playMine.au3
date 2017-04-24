@@ -31,7 +31,7 @@ Global $mapBR[]=[ 578, 368];
 Global $clientWidth=-1;
 Global $clientHeight=-1;
 
-Global $defaultDealy=300;
+Global $defaultDealy=50;
 
 ;***************
 #include-once
@@ -419,23 +419,42 @@ Func mainLoop()
 		trace("game state:"&$state);
 		Switch($state)
 			Case 0 ; playing.
+
 				basicNotify("playing, press <F10> to pause/continue, <F11> to stop...");
 				ScreenCapture_CaptureWnd("a.bmp", $hwnd,  $mapTL[0], $mapTL[1], $mapBR[0]-1, $mapBR[1]-1);
 				parseMapToFile("imgs\a.bmp", "map.txt");
 				RunWait("TrivalMineAI.exe map.txt operation.txt","",false);
-				Local $arr=FileReadToArray("operation.txt");
+				Local $fileContent=FileRead("operation.txt");
+				;trace("read filel:"&$fileContent);
+
+				Local $arr=FileReadToArray( "operation.txt");
 				if @error Then
 					MsgBox($MB_SYSTEMMODAL, "", "There was an error reading the file. @error: " & @error) ;
 				Else
+				#cs
+					$fileContent=StringReplace($fileContent,@CR," ");
+					$fileContent=StringReplace($fileContent,@CRLF," ");
+					$fileContent=StringReplace($fileContent,@TAB," ");
+					$fileContent=StringReplace($fileContent,"\r\n"," ");
+					$fileContent=StringReplace($fileContent,"\n\r"," ");
+					$fileContent=StringReplace($fileContent,"\r"," ");
+					$fileContent=StringReplace($fileContent,"\n"," ");
+					trace("read filel2 :"&$fileContent);
+					#ce
+					;Local $arr=StringSplit($fileContent," ");
 					Local $len=UBound($arr);
+
+					trace($len);
+
 					for $i =0 to $len-2 Step 2
-						Sleep(200);
+						Sleep(10);
 						$r=int($arr[$i]);
 						$c=int($arr[$i+1]);
+						trace("clicking ("&$r&","&$c&")...");
 						clickMine($r, $c);
-						mmove($clientWidth,$clientHeight);
-					Next
 
+					Next
+					mmove($clientWidth,$clientHeight);
 				EndIf
 				Sleep($defaultDealy);
 			case 1; fails.
