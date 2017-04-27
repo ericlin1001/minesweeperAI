@@ -67,8 +67,8 @@ startThisScript()
 While 1
 	Sleep(100)
 WEnd
-ToolTip("");
-Exit;
+Terminate();
+
 
 Func TogglePause()
 	$fPaused = Not $fPaused
@@ -77,11 +77,13 @@ Func TogglePause()
 		ToolTip('Script is "Paused"', 0, 0)
 	WEnd
 	ToolTip("")
+	WinActivate($hwnd);
 EndFunc   ;==>TogglePause
 
 Func Terminate()
 	trace("exiting...");
 	ToolTip("");
+	ProcessClose("TrivalMineAI.exe");
 	Exit
 EndFunc   ;==>Terminate
 
@@ -265,6 +267,7 @@ EndFunc
 
 Func clickMine($r, $c)
 Local $x, $y;
+WinActivate($hwnd);
 toXY($r, $c, $x, $y);
 mclick($x+$tileSize/2, $y+$tileSize/2);
 EndFunc
@@ -381,6 +384,7 @@ Func getGameState()
 	if hasPics("m0.bmp|m1.bmp|m2.bmp|m3.bmp|lose.bmp", 580, 369) Then
 		return 1;
 	EndIf
+	mmove($clientWidth, $clientHeight);
 	If hasPics("numZeroMine.bmp|win.bmp",614, 402) Then
 
 		return 2;
@@ -400,6 +404,7 @@ startGameProgram();
 trace("try click play again button");
 basicNotify("Please wait 2s, program's going to click the play again button");
 Sleep(100);
+mmove(0,0);
 If not clickPics("playAgain2.bmp|playAgain1.bmp|playAgain.bmp") Then
 	basicNotify("Auto click faisl, Please ress button: play again manually!");
 Else
